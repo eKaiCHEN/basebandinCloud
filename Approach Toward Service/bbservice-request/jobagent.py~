@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='192.168.56.101'))
+channel = connection.channel()
+
+channel.queue_declare(queue='jobs')
+
+print ' [*] Waiting for messages. To exit press CTRL+C'
+
+def callback(ch, method, properties, body):
+    print " [x] Received %r" % (body,)
+    #copy the task script from location idenitied by job queue info , and rename it to Task.sh in local machine 
+    os.system("scp"+body+"~/Task.sh")
+    #excute the task script locally
+    os.system("./Task.sh")
+
+channel.basic_consume(callback,
+                      queue='jobs',
+                      no_ack=True)
+
+channel.start_consuming()

@@ -1,0 +1,8 @@
+INC	=-I../../hiredis/hiredis -I../DbParserService/DbParserNagiosStatusdata
+LIB	=-L /usr/lib
+
+all:
+	gcc $(INC)  -o webserver ../DbParserService/DbParserNagiosStatusdata/DbParserServiceNagios_clnt.c webserver.c $(LIB) -lhiredis 
+ 
+
+

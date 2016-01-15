@@ -1,0 +1,10 @@
+#!/bin/bash
+# Task script 
+
+echo "First task excuted!"
+
+
+# excute the task in the local machine
+
+matlab.exe -r "cd c:\outdir; try, run ('c:\outdir\my.m'); end; quit"
+
